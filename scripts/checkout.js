@@ -114,6 +114,16 @@ cart.forEach((cartItem)=>{
     function deliveryOptionsHTML(){
         deliveryOptions.forEach((deliveryOption)=>{
             const today=dayjs();
+            const deliveryDate=today.add(
+                deliveryOption.deliveryDays,
+                'days'
+            );
+            const dateString=deliveryDate.format(
+                'dddd,MMMM D'
+            );
+            const priceStrings=deliveryOption.priceCents===0
+             ?'FREE'
+             :`${formatCurrency(deliveryOption.priceCents)}-`;
 
         ` 
         <div class="delivery-options">
@@ -126,7 +136,7 @@ cart.forEach((cartItem)=>{
                             name="delivery-option-${matchingProduct.id}">
                         <div>
                             <div class="delivery-option-date">
-                            Tuesday, June 21
+                            ${dateString}
                             </div>
                             <div class="delivery-option-price">
                             FREE Shipping
